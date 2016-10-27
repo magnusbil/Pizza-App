@@ -2,15 +2,53 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Ace of Spades</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/general.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Playball" rel="stylesheet">
     <script src="~/Scripts/jquery-1.9.1.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="~/Scripts/app/pizzaApp.js"></script>
     <script src="~/Scripts/app/orderService.js"></script>
+
 </head>
+<!--Modify The Code Below to fit needs-->
 <body ng-app="PizzaApp">
     <div ng-controller="OrderController">
+        <div class="container" id="orderPage" ng-show="isOrderInProgress">
+            <div id="banner">
+                <p id="banner-text">Ace Of Spades Pizza</p>
+            </div>
+            <div class="row" ng->
+                <div class="col-lg-4 col-lg-offset-4 ">
+                    <form name="OrderForm">
+                        <div class="form-group row">
+                            <label for="phone">Phone Number</label>
+                            <input class="form-control" type="tel" id="phone" required>
+                        </div>
+                        <div class="form-group row">
+                            <label for="name">Name</label>
+                            <input class="form-control" type="text" id="name" required>
+                        </div>
+                        <div class="form-group row">
+                            <label for="DeliveryDate">Delivery Date and Time</label>
+                            <input class="form-control" type="datetime-local" id="DeliveryDate" required>
+                        </div>
+                        <div class="form-group row">
+                            <label for="orderSize">Number Of Pizzas</label>
+                            <input class="form-control" type="number" id="orderSize" required>
+                        </div>
+                        <div class="form-group row">
+                            <button type="submit" class="btn btn-primary" ng-disabled="OrderForm.$invalid">Complete Order</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="container" id="orderHistory" ng-show="!isOrderInProgress">
+
+        </div>
     </div>
 </body>
 </html>
