@@ -13,23 +13,65 @@ using PizzaOrderingWebApp.Models;
 
 namespace PizzaOrderingWebApp.ApiControllers
 {
-    [RoutePrefix("api")]
     public class OrdersController : ApiController
     {
         private OrderDb db = new OrderDb();
 
         // GET: api/Orders
-        [HttpGet]
-        [Route("Orders")]
         public IQueryable<Order> Getorders()
         {
             return db.orders;
         }
 
-        
+        // GET: api/Orders/5
+        [ResponseType(typeof(Order))]
+        public async Task<IHttpActionResult> GetOrder(string id)
+        {
+            Order order = await db.orders.FindAsync(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(order);
+        }
+
+        // PUT: api/Orders/5
+        [ResponseType(typeof(void))]
+        public async Task<IHttpActionResult> PutOrder(string id, Order order)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != order.PhoneNumber)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(order).State = EntityState.Modified;
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!OrderExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
         // POST: api/Orders
-        [HttpPost]
-        [Route("Orders")]
         [ResponseType(typeof(Order))]
         public async Task<IHttpActionResult> PostOrder(Order order)
         {
@@ -57,6 +99,22 @@ namespace PizzaOrderingWebApp.ApiControllers
             }
 
             return CreatedAtRoute("DefaultApi", new { id = order.PhoneNumber }, order);
+        }
+
+        // DELETE: api/Orders/5
+        [ResponseType(typeof(Order))]
+        public async Task<IHttpActionResult> DeleteOrder(string id)
+        {
+            Order order = await db.orders.FindAsync(id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            db.orders.Remove(order);
+            await db.SaveChangesAsync();
+
+            return Ok(order);
         }
 
         protected override void Dispose(bool disposing)

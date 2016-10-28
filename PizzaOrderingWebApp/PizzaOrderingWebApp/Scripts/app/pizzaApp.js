@@ -27,7 +27,10 @@ app.service('orderService', function($resource) {
 });
 
 app.controller('OrderController', function ($scope, orderService) {
+    var id = guid();
+
     $scope.currentOrder = {
+        orderId: id,
         phoneNumber: "",
         name: "",
         deliveryDate: null,
@@ -38,6 +41,10 @@ app.controller('OrderController', function ($scope, orderService) {
         orderService.addOrder($scope.currentOrder);
         //$location.path('/order-complete');
         console.log($scope);
+    }
+
+    function guid() {
+        return Math.random().toString(16);
     }
 });
 

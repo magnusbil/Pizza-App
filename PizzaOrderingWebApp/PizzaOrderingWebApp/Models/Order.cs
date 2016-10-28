@@ -11,6 +11,7 @@ namespace PizzaOrderingWebApp.Models
     public class Order
     {
         [Key]
+        public string orderId { get; set; }
         public string PhoneNumber { get; set; }
         public string Name { get; set; }
         public DateTime DeliveryDate { get; set; }
