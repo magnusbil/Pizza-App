@@ -1,12 +1,50 @@
-﻿var app = angular.module('PizzaApp', []);
+﻿var app = angular.module('PizzaApp', ['ngResource', 'ngRoute']);
 
-app.controller('OrderController', function ($scope) {
-    $scope.allOrders = [];
-    $scope.isOrderInProgress = true;
-    $scope.completeOrder = function () {
-        //create order from form data
-        //call orderService.addOrder
-        //add order to allOrders
-        //set isOrderInProgress to false
+app.config(function ($routeProvider) {
+    $routeProvider.
+       when('/', {
+           templateUrl: '/Scripts/app/OrderPage.html',
+           controller: 'OrderController'
+       }).
+       when('/order-complete', {
+           tempalteUrl: '/Scripts/app/OrderComplete.html',
+           controller: 'OrderCompleteController'
+       }).
+       otherwise({
+           redirectTo: '/'
+       });
+});
+
+app.service('orderService', function($resource) {
+    return {
+        getAllOrders: function () {
+            return $resource('api/Orders').get();
+        },
+        addOrder: function (order) {
+            $resource('api/Orders').save(order);
+        }
     }
+});
+
+app.controller('OrderController', function ($scope, orderService) {
+    $scope.currentOrder = {
+        phoneNumber: "",
+        name: "",
+        deliveryDate: null,
+        pizzasOrdered: 1
+    }
+    
+    $scope.completeOrder = function () {
+        orderService.addOrder($scope.currentOrder);
+        //$location.path('/order-complete');
+        console.log($scope);
+    }
+});
+
+app.controller('OrderCompleteController', function ($scope, orderService) {
+    $scope.allOrders = [];
+
+    orderService.getAllOrders().$promise.then(function (data) {
+      $scope.allOrders = data.content;
+    });
 });

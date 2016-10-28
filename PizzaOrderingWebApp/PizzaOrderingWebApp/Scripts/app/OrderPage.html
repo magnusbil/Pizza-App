@@ -1,0 +1,40 @@
+﻿<div class="container" id="orderPage">
+    <div id="banner">
+        <p id="banner-text">Ace Of Spades Pizza</p>
+    </div>
+    <div class="row" ng->
+        <div class="col-md-4 col-md-offset-4 ">
+            <ng-form name="OrderForm">
+                <div class="form-group row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <label for="phone">Phone Number</label>
+                        <input class="form-control" ng-model="currentOrder.phoneNumber" type="tel" id="phone" maxlength="10" ng-required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <label for="name">Name</label>
+                        <input class="form-control" ng-model="currentOrder.name" type="text" id="name" ng-required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <label for="DeliveryDate">Delivery Date and Time</label>
+                        <input class="form-control" ng-model="currentOrder.deliveryDate" type="datetime-local" id="DeliveryDate" ng-required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-5 col-md-offset-2">
+                        <label for="orderSize">Number Of Pizzas</label>
+                        <input class="form-control" ng-model="currentOrder.pizzasOrdered" type="number" id="orderSize" min="1" ng-required>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12 col-md-offset-2">
+                        <button type="submit" class="btn btn-primary" ng-disabled="false" ng-click="completeOrder()">Complete Order</button>
+                    </div>
+                </div>
+            </ng-form>
+        </div>
+    </div>
+</div>
