@@ -9,12 +9,17 @@
     <script src="~/Scripts/bootstrap.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+    <script src="https://unpkg.com/angular-ui-router@0.3.1/release/angular-ui-router.js"></script>
     <script src="~/Scripts/app/pizzaApp.js"></script>
 
 </head>
 <!--Modify The Code Below to fit needs-->
 <body ng-app="PizzaApp">
-    <div ng-view></div>
+    <div class="container">
+        <div id="banner">
+            <p id="banner-text">Ace Of Spades Pizza</p>
+        </div>
+        <div ui-view></div>
+    </div>
 </body>
 </html>

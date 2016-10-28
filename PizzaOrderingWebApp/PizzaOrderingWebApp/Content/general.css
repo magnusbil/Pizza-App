@@ -1,11 +1,11 @@
 ﻿body {
-    background: radial-gradient(rgb(246, 74, 34) 0%, rgb(199, 9, 15) 100%);
+    background: rgb(246, 74, 34) 30%;
 }
 
 #banner {
     height: 10%;
     width: 100%;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
 }
 
 #banner-text{
@@ -18,10 +18,12 @@
     color: black;
 }
 
-#orderPage{
-    /*margin-top: 10%;*/
+#orderHistory{
+    text-align: center;
+    font-size: 16px;
+    border: black solid 2px;
 }
 
-#orderHistory{
-
+#history-text{
+    text-align: center;
 }
